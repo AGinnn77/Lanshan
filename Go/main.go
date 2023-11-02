@@ -3,7 +3,9 @@ package main
 import (
 	"fmt"
 	"math"
-	_ "math"
+	"math/rand"
+	_ "sort"
+	"time"
 )
 
 func Add(a int, b int) int {
@@ -12,7 +14,7 @@ func Add(a int, b int) int {
 }
 
 func Circle(r float64) float64 {
-	S := float64(math.Pi) * r * r
+	S := math.Pi * r * r
 	return S
 }
 
@@ -28,6 +30,30 @@ func PrimeNumber(n int) bool {
 	}
 	return true
 }
+
+func Binary(target int) int {
+	low, high := 0, 100
+
+	for low <= high {
+		mid := (low + high) / 2
+		if mid == target {
+			return mid
+		}
+		if mid < target {
+			low = mid + 1
+		} else {
+			high = mid - 1
+		}
+	}
+	return -1
+}
+
+func random() int {
+	rand.Seed(time.Now().UnixNano())
+	r := rand.Intn(100)
+	return r
+}
+
 func main() {
 	var a, b int
 	fmt.Scanln(&a, &b)
@@ -41,8 +67,11 @@ func main() {
 	fmt.Scanln(&Pri)
 	if PrimeNumber(Pri) == true {
 		fmt.Println("true")
-	}
-	if PrimeNumber(Pri) == false {
+	} else {
 		fmt.Println("false")
 	}
+
+	RandomNum := random()
+	fmt.Println(Binary(RandomNum))
+
 }
